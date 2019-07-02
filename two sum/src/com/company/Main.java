@@ -1,5 +1,4 @@
 package com.company;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,15 +19,19 @@ public class Main {
         int[] result = new int[2];
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i = 0; i < numbers.length; i++) {
-            System.out.println("t:"+target+"n["+i+"]:"+numbers[i]);
+            // System.out.println("t:"+target+"n["+i+"]:"+numbers[i]);
+
             if (map.containsKey(target - numbers[i])) {
                 result[1] = i + 1;
                 result[0] = map.get(target - numbers[i]);
                 return result;
             }
-            System.out.println("put key:"+numbers[i]+"value:"+(i+1));
+
+           // System.out.println("put key:"+numbers[i]+"value:"+(i+1));
             map.put(numbers[i], i + 1);
         }
         return result;
     }
+
+
 }
