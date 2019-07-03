@@ -25,97 +25,63 @@ public class Main {
         r1.next=r2;
 //        r2.next=r3;
 //        r3.next=r4;
-
        // printListNode(l1);
        // printListNode(r1);
-
         ListNode result=addTwoNumbers(l1,r1);
         printListNode(result);
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
-        ListNode Head=null;
+        ListNode Head= null;
         ListNode Tail=null;
-        int carry=0;
-        int t1=0,t2=0,t3=0;
+        int carry=0,t1=0,t2=0,t3=0;
         ListNode p1=l1;
         ListNode p2=l2;
-
         while(p1!=null||p2!=null||carry!=0){
-
-            t1=0;
-            t2=0;
+            t1=0; t2=0;
             if(p1!=null){ t1=p1.val;}
             if(p2!=null){ t2=p2.val;}
-            if(p1==null && p2!=null){
-                Tail.next=p2;
-                if(carry!=0) p2.val+=1;
-                while(p2!=null){
-                    if(p2.val>=10){
-                        p2.val=0;
-                        if(p2.next!=null){
-                            p2.next.val+=1;
-                        }else
-                        {
-                            ListNode tmp1= new ListNode(1);
-                            p2.next=tmp1;
-                        }
-                    }
-                    p2=p2.next;
-                }
-
-            //   printListNode(Head);
-                return Head;
-            }else if(p2==null && p1!=null ){
-                Tail.next=p1;
-                if(carry!=0) p1.val+=1;
-                while(p1!=null) {
-                    if (p1.val >= 10) {
-                        p1.val = 0;
-                        if (p1.next != null) {
-                            p1.next.val += 1;
+            if((p1==null && p2!=null)||(p2==null && p1!=null)) {
+                ListNode tmp = null;
+                if (p2 != null) tmp = p2;
+                else tmp = p1;
+                Tail.next = tmp;
+                if (carry != 0) tmp.val += 1;
+                while (tmp != null) {
+                    if (tmp.val >= 10) {
+                        tmp.val = 0;
+                        if (tmp.next != null) {
+                            tmp.next.val += 1;
                         } else {
-                            ListNode tmp2 = new ListNode(1);
-                            p1.next = tmp2;
+                            ListNode tmp1 = new ListNode(1);
+                            tmp.next = tmp1;
                         }
                     }
-                    p1 = p1.next;
-                }
-            //    printListNode(Head);
+                    tmp = tmp.next;
+                }//   printListNode(Head);
                 return Head;
-            }
-
-            if((t3=t1+t2)<10){
-                if(Head==null){ Head=new ListNode(t3); Tail=Head;
+            }//if one of the list is null
+            Boolean flag=true;
+            if((t3=t1+t2)<10){ flag=false;}
+            else{ t3=t3-10;}
+            if(Head==null){ Head=new ListNode(t3); Tail=Head;
                 //printListNode(Head);
-                }
-                else{
-                    ListNode tmp=new ListNode(t3+carry);
-                    carry=0;
-                    if(tmp.val>=10){
-                        tmp.val-=10;
-                        carry=1;
-                    }
-                    Tail.next=tmp;
-                    Tail=tmp;
-                  //  printListNode(Head);
-                }
-            }else{
-                t3=t3-10;
-                if(Head==null){ Head=new ListNode(t3); Tail=Head;
-                    //printListNode(Head);
-                }else {
-                    ListNode tmp = new ListNode(t3+carry);
-                    Tail.next = tmp;
-                    Tail = tmp;
-                    // printListNode(Head);
-                }
-                carry=1;
             }
+            else{
+                ListNode tmp=new ListNode(t3+carry);
+                carry=0;
+                if(tmp.val>=10){//when t3=9 carry=1
+                    tmp.val-=10;
+                    carry=1;
+                }
+                Tail.next=tmp;
+                Tail=tmp;
+                //  printListNode(Head);
+            }
+            if(flag) carry=1;
            if(p1!=null) p1=p1.next;
            if(p2!=null) p2=p2.next;
-
-            printListNode(Head);
+          //  printListNode(Head);
         }
         return Head;
     }
