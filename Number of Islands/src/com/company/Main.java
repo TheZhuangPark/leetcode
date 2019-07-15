@@ -27,6 +27,7 @@ public class Main {
         DFSMarking(grid,i-1,j);
         DFSMarking(grid,i,j+1);
         DFSMarking(grid,i,j-1);
+
     }
 
     public static void main(String[] args) {
